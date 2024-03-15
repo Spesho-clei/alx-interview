@@ -1,25 +1,20 @@
 #!/usr/bin/python3
 
 def canUnlockAll(boxes):
-    if not boxes:
+    if not boxes or not boxes[0]:
         return False
 
-    # Initialize a set to keep track of opened boxes
-    opened = set()
-    opened.add(0)  # The first box is always unlocked initially
-
-    # Initialize a queue for BFS
+    n1 = len(boxes)
+    visited = [False] * n1
+    visited[0] = True
     queue = [0]
 
     while queue:
         current_box = queue.pop(0)
 
-        # Check all the keys in the current box
         for key in boxes[current_box]:
-            # If the key opens a new box and we haven't opened it yet
-            if key < len(boxes) and key not in opened:
-                opened.add(key)
+            if 0 <= key < n1 and not visited[key]:
+                visited[key] = True
                 queue.append(key)
 
-    # If all boxes have been opened, return True
-    return len(opened) == len(boxes)
+    return all(visited)
