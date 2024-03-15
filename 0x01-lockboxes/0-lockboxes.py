@@ -14,10 +14,14 @@ def canUnlockAll(boxes):
 
     while queue:
         current_box = queue.pop(0)
+        print("Visiting box:", current_box)
 
         for key in boxes[current_box]:
             if 0 <= key < n1 and not visited[key]:
+                print("Found key to box:", key)
                 visited[key] = True
                 queue.append(key)
+            else:
+                print("Skipping key to box:", key)
 
     return all(visited)
